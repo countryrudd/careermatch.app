@@ -4,7 +4,11 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-    {},
+    {
+        path: '/developers',
+        name: 'Developers',
+        component: () => import('@/views/Developers.vue'),
+    },
 ];
 
 const router = new VueRouter({
