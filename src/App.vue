@@ -1,32 +1,42 @@
 <template>
     <div id="app">
-        <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link>
+        <div class="d-flex">
+            <SideNavbar />
+            <div class="d-flex flex-column w-100">
+                <TopNavbar class="mb-4 w-100" style="height: min-content;" />
+                <div class="container mb-4">
+                    <router-view />
+                </div>
+                <Footer class="mt-auto" />
+            </div>
         </div>
-        <router-view />
     </div>
 </template>
 
+<script>
+    import TopNavbar from '@/components/Navbars/TopNavbar';
+    import SideNavbar from '@/components/Navbars/SideNavbar';
+    import Footer from '@/components/Footer';
+
+    export default {
+        components: {
+            TopNavbar,
+            SideNavbar,
+            Footer,
+        },
+    }
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+    body {
+        background-color: #f8f9fc;
+    }
 
-#nav {
-  padding: 30px;
-}
+    .min-vh-100 {
+        min-height: 100vh !important;
+    }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+    .vh-75 {
+        height: 75vh;
+    }
 </style>
