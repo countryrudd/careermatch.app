@@ -16,7 +16,16 @@
                     </router-link>
 
                     <div class="d-flex">
-                        <strong class="me-2">Skills:</strong>
+                        <strong class="me-2">Languages:</strong>
+                        <div class="d-flex flex-wrap">
+                            <span v-for="language in job.languages" :key="language" class="me-2">
+                                {{ language }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <strong class="me-2">Skills Required:</strong>
                         <div class="d-flex flex-wrap">
                             <span v-for="skill in job.skills" :key="skill" class="me-2">
                                 {{ skill }}
@@ -32,7 +41,7 @@
                     <div class="d-flex">
                         <strong class="me-2">Workplace-Culture Tags:</strong>
                         <div class="d-flex flex-wrap">
-                            <span v-for="culture in job.culture" :key="culture" class="me-2">
+                            <span v-for="culture in job.cultures" :key="culture" class="me-2">
                                 {{ culture }}
                             </span>
                         </div>
@@ -48,7 +57,7 @@
     export default {
         name: 'JobsListCard',
         props: {
-            developers: { type: Array, required: true },
+            jobs: { type: Array, required: true },
         },
     }
 </script>

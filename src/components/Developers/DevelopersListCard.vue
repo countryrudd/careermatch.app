@@ -9,10 +9,12 @@
                              style="max-height: 100%; max-width: 100%; display: block;">
                     </picture>
                 </div>
+
                 <div class="col-10 pl-3">
                     <router-link :to="{ name: 'Developers' }" style="text-decoration: none;">
                         <h5 class="mb-1">{{ developer.name }}</h5>
                     </router-link>
+
                     <div class="d-flex">
                         <strong class="me-2">Languages:</strong>
                         <div class="d-flex flex-wrap">
@@ -21,6 +23,7 @@
                             </span>
                         </div>
                     </div>
+
                     <div class="d-flex">
                         <strong class="me-2">Skills:</strong>
                         <div class="d-flex flex-wrap">
@@ -29,6 +32,7 @@
                             </span>
                         </div>
                     </div>
+
                     <div class="d-flex">
                         <strong class="me-2">Location:</strong>
                         <span>{{ developer.location }}</span>
