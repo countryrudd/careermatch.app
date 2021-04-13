@@ -4,14 +4,17 @@
             <LoadingSpinner v-if="loading" class="vh-50" />
             <LoadingError v-else-if="loadingError" class="vh-50" />
             <div v-else-if="developers.length" class="d-flex flex-column align-items-center">
-                <div>
-                    <div v-for="developer in developers" :key="developer.id" class="row no-gutters mb-2">
-                        <div class="col-2">
-                            <picture>
-                                <img :src="developer.avatar_url"
-                                     :alt="developer.name"
-                                     style="max-height: 100%; max-width: 100%; display: block;">
-                            </picture>
+                <div class="w-100">
+                    <div v-for="developer in currentPageDevelopers" :key="developer.id" class="row no-gutters mb-2">
+                        <div class="col-2 d-flex align-items-center justify-content-center">
+                            <FontAwesomeIcon v-if="invalidDeveloperAvatars.includes(developer.id)"
+                                             icon="user"
+                                             style="font-size: 5vw;" />
+                            <img v-else
+                                 :src="developer.avatar_url"
+                                 :alt="developer.name"
+                                 @error="invalidDeveloperAvatars.push(developer.id)"
+                                 style="max-height: 100%; max-width: 100%; display: block;">
                         </div>
 
                         <div class="col-10 pl-3">
@@ -44,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <PaginationButtons :number-of-pages="numberOfPages" :page-number="1" />
+                <PaginationButtons :number-of-pages="numberOfPages" :page-number.sync="pageNumber" />
             </div>
             <div v-else class="vh-50 d-flex align-items-center justify-content-center">
                 <div class="d-flex flex-column align-items-center">
@@ -77,7 +80,9 @@
         },
         data() {
             return {
+                pageNumber: 1,
                 pageLength: 4,
+                invalidDeveloperAvatars: [],
             }
         },
         computed: {
@@ -88,6 +93,15 @@
             numberOfPages() {
                 return Math.ceil(this.developers.length / this.pageLength)
             },
-        }
+            /**
+             * The current page's Developers.
+             * @returns {Array<Object>}
+             */
+            currentPageDevelopers() {
+                return this.developers.slice(
+                    (this.pageNumber - 1) * this.pageLength, this.pageNumber * this.pageLength
+                );
+            },
+        },
     }
 </script>

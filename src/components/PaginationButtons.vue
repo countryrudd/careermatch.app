@@ -3,7 +3,7 @@
         <div v-if="numberOfPages > 1" class="btn-group btn-group-sm" role="group">
             <button type="button"
                     :disabled="pageNumber === 1"
-                    @click="$emit('update:PageNumber', pageNumber - 1)"
+                    @click="$emit('update:pageNumber', pageNumber - 1)"
                     class="btn btn-secondary">
                 <FontAwesomeIcon icon="chevron-left" />
             </button>
