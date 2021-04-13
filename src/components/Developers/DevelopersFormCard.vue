@@ -1,7 +1,7 @@
 <template>
     <div class="card shadow">
         <div class="card-body">
-            <fieldset>
+            <fieldset :disabled="loading">
                 <div class="form-group">
                     <input @input="$emit('update:search', $event.target.value)"
                            @keypress.enter="$emit('getDevelopers')"
@@ -42,6 +42,7 @@
             languages: { type: Array, required: true },
             skills: { type: Array, required: true },
             locations: { type: Array, required: true },
+            loading: { type: Boolean, required: true },
         },
     }
 </script>

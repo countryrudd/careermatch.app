@@ -8,6 +8,7 @@
                                         :languages.sync="languages"
                                         :skills.sync="skills"
                                         :locations.sync="locations"
+                                        :loading="loading"
                                         @getDevelopers="getDevelopers()" />
                 </div>
                 <div class="col-xl-9">
