@@ -1,15 +1,20 @@
 <template>
     <div>
-        <LoadingSpinner v-if="loading" class="vh-75" />
-        <LoadingError v-else-if="loadingError" class="vh-75" />
-        <div v-else>
+        <div>
             <h3 class="mb-4">Developers</h3>
             <div class="row no-gutters">
                 <div class="col">
-                    <DevelopersFormCard />
+                    <DevelopersFormCard :search.sync="search"
+                                        :languages.sync="languages"
+                                        :skills.sync="skills"
+                                        :locations.sync="locations"
+                                        :loading="loading"
+                                        @getDevelopers="getDevelopers()" />
                 </div>
                 <div class="col-xl-9">
-                    <DevelopersListCard :developers="developers" />
+                    <DevelopersListCard :loading="loading"
+                                        :loading-error="loadingError"
+                                        :developers="developers" />
                 </div>
             </div>
         </div>
@@ -17,8 +22,6 @@
 </template>
 
 <script>
-    import LoadingSpinner from '@/components/Loading/LoadingSpinner';
-    import LoadingError from '@/components/Loading/LoadingError';
     import DevelopersFormCard from '@/components/Developers/DevelopersFormCard';
     import DevelopersListCard from '@/components/Developers/DevelopersListCard';
     import { getUsers } from '@/services/UserService';
@@ -26,8 +29,6 @@
     export default {
         name: 'Developers',
         components: {
-            LoadingSpinner,
-            LoadingError,
             DevelopersFormCard,
             DevelopersListCard,
         },
@@ -36,17 +37,34 @@
                 loading: true,
                 loadingError: null,
                 developers: [],
+                search: null,
+                languages: [],
+                skills: [],
+                locations: [],
             }
         },
-        async mounted() {
-            try {
-                const { data: developers } = await getUsers(true);
-                this.developers = developers;
-            } catch (error) {
-                this.loadingError = error;
-            } finally {
-                this.loading = false;
-            }
-        }
+        mounted() {
+            this.getDevelopers();
+        },
+        methods: {
+            async getDevelopers() {
+                this.loading = true;
+                try {
+                    const { data: developers } = await getUsers(
+                        true,
+                        this.search,
+                        this.languages,
+                        this.skills,
+                        this.locations,
+                    );
+                    this.developers = developers;
+                    this.loadingError = null;
+                } catch ({ response: { data }}) {
+                    this.loadingError = data;
+                } finally {
+                    this.loading = false;
+                }
+            },
+        },
     }
 </script>
