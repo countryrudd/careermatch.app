@@ -14,6 +14,11 @@ const routes = [
         name: 'Jobs',
         component: () => import('@/views/Jobs.vue'),
     },
+    {
+        path: '/job',
+        name: 'Job Details',
+        component: () => import('@/views/JobDetails.vue'),
+    },
 ];
 
 const router = new VueRouter({
