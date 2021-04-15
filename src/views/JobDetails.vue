@@ -65,17 +65,28 @@
                 jobs: [],
             }
         },
+        watch: {
+            '$route.query.id'(){
+                this.getJob();
+            }
+        },
+        mounted() {
+            this.getJob();
+        },
 
-        async mounted() {
-            try {
-                const { data: job } = await getJob(this.$route.query.id);
-                this.job = job;
-                const { data: jobs } = await getJobs(true);
-                this.jobs = jobs;
-            } catch (error) {
-                this.loadingError = error;
-            } finally {
-                this.loading = false;
+        methods: {
+            async getJob(){
+                try {
+                    const { data: job } = await getJob(this.$route.query.id);
+                    this.job = job;
+                    const { data: jobs } = await getJobs(true);
+                    this.jobs = jobs;
+                } catch (error) {
+                    this.loadingError = error;
+                } finally {
+                    this.loading = false;
+                }
+
             }
         }
     }

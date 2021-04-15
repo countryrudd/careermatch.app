@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="col-10 pl-3">
-                    <router-link :to="`/job/?id=${job.id}`" style="text-decoration: none;">
+                    <router-link :to="{ name: 'JobDetails', query: { id: job.id }}" style="text-decoration: none;">
                         <h5 class="mb-1">{{ job.title }}</h5>
                     </router-link>
 
