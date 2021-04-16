@@ -10,7 +10,7 @@
             <SideNavbarItem name="Developers" icon="users" :route="{ name: 'Developers' }" :expanded="expanded" />
             <SideNavbarItem name="Jobs" icon="list" :route="{ name: 'Jobs' }" :expanded="expanded" />
             <SideNavbarItem name="Profile" icon="user" :route="{ name: 'Profile' }" :expanded="expanded" />
-            <SideNavbarItem name="Company" icon="building" :route="{ name: 'Company' }" :expanded="expanded" />
+            <SideNavbarItem name="Company" icon="building" :route="{ name: 'CreateCompany' }" :expanded="expanded" />
             <div class="d-flex flex-column align-items-center my-4">
                 <button @click="expanded = !expanded" class="btn rounded-circle sidebar-toggle">
                     <FontAwesomeIcon :icon="expanded ? 'chevron-left' : 'chevron-right'" style="color: #d1d3e2;" />
