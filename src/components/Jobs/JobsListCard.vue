@@ -4,7 +4,7 @@
             <div v-for="job in jobs" :key="job.id" class="row no-gutters mb-2">
                 <div class="col-2">
                     <picture>
-                        <img :src="job.logo_url"
+                        <img src="@/assets/meds.png"
                              :alt="job.title"
                              style="max-height: 100%; max-width: 100%; display: block;">
                     </picture>
