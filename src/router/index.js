@@ -25,7 +25,7 @@ const routes = [
         component: () => import('@/views/CreateCompany.vue'),
     },
     {
-        path: '/company/:id',
+        path: '/companies/:id',
         name: 'CompanyDetails',
         component: () => import('@/views/CompanyDetails.vue'),
     },

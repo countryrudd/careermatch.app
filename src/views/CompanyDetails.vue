@@ -27,7 +27,7 @@
                                     <h5 class="mb-2">{{ job.title }}</h5>
                                 </router-link>
                                 <span class="mb-3">{{ job.location }}</span>
-                                <span>{{ job.description.substring(0, 250) + '...' }}</span>
+                                <span v-if="job.description">{{ job.description.substring(0, 250) + '...' }}</span>
                             </div>
                         </div>
                     </div>
