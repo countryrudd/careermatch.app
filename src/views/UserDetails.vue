@@ -3,13 +3,12 @@
         <LoadingSpinner v-if="loading" class="vh-75" />
         <LoadingError v-else-if="loadingError" class="vh-75" />
         <div v-else class="d-flex flex-column">
-            <div class="d-flex align-items-center justify-content-center">
+            <div class="d-flex flex-column align-items-center justify-content-center text-center text-secondary">
                 <div v-if="user.avatar_url" class="avatar" :style="{ 'background-image': `url(${user.avatar_url})` }" />
                 <FontAwesomeIcon v-else icon="user" style="font-size: 5vw;" />
+                <h3>{{ user.name }}</h3>
+                <h5 v-if="user.bio" class="mb-0">{{ user.bio }}</h5>
             </div>
-            <h3 v-if="user.bio" class="text-center">
-                <br>{{ user.bio }}
-            </h3>
             <section class="text-secondary">
                 <h3 class="my-3">Skills</h3>
                 <div class="ms-4">
