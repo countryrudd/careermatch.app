@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import filters from './filters'
 import '@/services/util/AxiosInterceptor'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -11,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(fas)
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)
 Vue.config.productionTip = false
+Vue.use(filters);
 
 new Vue({
     router,

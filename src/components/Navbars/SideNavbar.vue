@@ -9,7 +9,10 @@
             </div>
             <SideNavbarItem name="Developers" icon="users" :route="{ name: 'Developers' }" :expanded="expanded" />
             <SideNavbarItem name="Jobs" icon="list" :route="{ name: 'Jobs' }" :expanded="expanded" />
-            <SideNavbarItem name="Profile" icon="user" :route="{ name: 'Profile' }" :expanded="expanded" />
+            <SideNavbarItem name="Profile"
+                            icon="user"
+                            :route="{ name: 'UserDetails', params: { 'id': '9926e2a5-2fc4-44dd-a3e9-8d956b84f89b' } }"
+                            :expanded="expanded" />
             <div @mouseleave="showCompanyOptions = false">
                 <a @click="showCompanyOptions = !showCompanyOptions"
                    class="sidebar-link d-flex align-items-center mb-4 px-3 cursor-pointer"

@@ -40,22 +40,3 @@ export const getUsers = (is_developer, search, languages, skills, locations) => 
 export const getUser = (id) => {
     return axios.get(`/users/${id}/`);
 };
-
-
-/**
- * TEMPORARY METHOD TO GET REPOS FROM GITHUP API (while backend not complete)
- *
- * @param {string} id
- */
-export const getRepos = () => {
-    return axios.get('https://api.github.com/users/craigrobertwhite/repos');
-};
-
-/**
- * TEMPORARY METHOD TO GET LANGUAGES FROM GITHUP API (while backend not complete)
- *
- * @param {string} id
- */
-export const getLanguages = (languages_url) => {
-    return axios.get(languages_url);
-};
