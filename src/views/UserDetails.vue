@@ -5,7 +5,7 @@
         <div v-else class="d-flex flex-column">
             <div class="d-flex flex-column align-items-center justify-content-center text-center text-secondary">
                 <div v-if="user.avatar_url" class="avatar" :style="{ 'background-image': `url(${user.avatar_url})` }" />
-                <FontAwesomeIcon v-else icon="user" style="font-size: 5vw;" />
+                <FontAwesomeIcon v-else icon="user" class="mb-3" style="font-size: 5vw;" />
                 <h3>{{ user.name }}</h3>
                 <h5 v-if="user.bio" class="mb-0">{{ user.bio }}</h5>
             </div>

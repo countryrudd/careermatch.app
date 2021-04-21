@@ -18,7 +18,8 @@
                         </div>
 
                         <div class="col-10 pl-3">
-                            <router-link :to="{ name: 'Developers' }" style="text-decoration: none;">
+                            <router-link :to="{ name: 'UserDetails', params: { id: developer.id } }"
+                                         style="text-decoration: none;">
                                 <h5 class="mb-1">{{ developer.name }}</h5>
                             </router-link>
 
