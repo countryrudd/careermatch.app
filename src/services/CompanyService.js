@@ -8,3 +8,7 @@ import axios from 'axios';
 export const createCompany = (data) => {
     return axios.post('/companies/', data);
 };
+
+export const getCompany = (id) => {
+    return axios.get(`/companies/${id}/`);
+};

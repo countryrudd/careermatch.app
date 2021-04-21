@@ -39,19 +39,17 @@
                             </span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </template>
 
-
 <script>
     export default {
-        name: 'JobDetailCard.vue',
-        props:{
-            job: {type: Array, required: true},
+        name: 'JobDetailCard',
+        props: {
+            job: { type: Object, required: true },
         },
     }
 </script>

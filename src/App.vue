@@ -28,8 +28,11 @@
 </script>
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
     body {
         background-color: #f8f9fc;
+        font-family: Nunito, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
     }
 
     .cursor-pointer {
@@ -66,5 +69,13 @@
 
     .vh-25 {
         height: 25vh;
+    }
+
+    .h-100 {
+        height: 100%;
+    }
+
+    .w-100 {
+        width: 100%;
     }
 </style>

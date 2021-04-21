@@ -3,22 +3,25 @@
         <LoadingSpinner v-if="loading" class="vh-75" />
         <LoadingError v-else-if="loadingError" class="vh-75" />
         <div v-else>
-            <h3 class="mb-1" style="text-align: center">{{ job.title }}</h3>
-            <p class="mb-4" style="text-align: center"><em>{{ job.company_name }}</em></p>
-            <br>
-            <div class="row no-gutters">
-
+            <section class="d-flex flex-column align-items-center mb-4">
+                <div v-if="job.logo_url" class="col-2 mb-3">
+                    <img :src="job.logo_url"
+                         :alt="job.title"
+                         style="max-height: 100%; max-width: 100%; display: block;">
+                </div>
+                <h3 class="text-center">{{ job.title }}</h3>
+                <p class="text-center"><em>{{ job.company_name }}</em></p>
+            </section>
+            <section class="row no-gutters">
                 <div class="col-xl-6">
                     <h4 class="mb-1" style="text-align: center">Job Information</h4>
                     <JobDetailCard :job="job" />
                 </div>
 
-
                 <div class="col-xl-6">
                     <h4 class="mb-1" style="text-align: center">Job Description</h4>
                     <JobDescriptionCard :job="job" />
                 </div>
-
 
                 <div class="col-xl-6">
                     <br>
@@ -26,13 +29,12 @@
                     <JobCompanyCard :job="job" />
                 </div>
 
-
                 <div class="col-xl-6">
                     <br>
                     <h4 class="mb-1" style="text-align: center">Open Positions</h4>
                     <JobOtherPositionsCard :jobs="jobs" />
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </template>
@@ -73,9 +75,8 @@
         mounted() {
             this.getJob();
         },
-
         methods: {
-            async getJob(){
+            async getJob() {
                 try {
                     const { data: job } = await getJob(this.$route.query.id);
                     this.job = job;
@@ -86,7 +87,6 @@
                 } finally {
                     this.loading = false;
                 }
-
             }
         }
     }

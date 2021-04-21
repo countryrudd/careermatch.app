@@ -2,14 +2,11 @@
     <div class="card shadow">
         <div class="card-body">
             <div v-for="job in jobs" :key="job.id" class="row no-gutters mb-2">
-                <div class="col-2">
-                    <picture>
-                        <img :src="job.logo_url"
-                             :alt="job.title"
-                             style="max-height: 100%; max-width: 100%; display: block;">
-                    </picture>
+                <div v-if="job.logo_url" class="col-2 d-flex align-items-center justify-content-center">
+                    <img :src="job.logo_url"
+                         :alt="job.title"
+                         style="max-height: 100%; max-width: 100%; display: block;">
                 </div>
-
                 <div class="col-10 pl-3">
                     <router-link :to="{ name: 'JobDetails', query: { id: job.id }}" style="text-decoration: none;">
                         <h5 class="mb-1">{{ job.title }}</h5>
@@ -46,7 +43,6 @@
                             </span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
