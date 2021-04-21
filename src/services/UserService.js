@@ -31,3 +31,12 @@ export const getUsers = (is_developer, search, languages, skills, locations) => 
 
     return axios.get('/users/' + combinedQueryString);
 };
+
+/**
+ * Get a single User object from the API.
+ *
+ * @param {string} id
+ */
+export const getUser = (id) => {
+    return axios.get(`/users/${id}/`);
+};

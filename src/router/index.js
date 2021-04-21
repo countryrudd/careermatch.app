@@ -25,10 +25,15 @@ const routes = [
         component: () => import('@/views/CreateCompany.vue'),
     },
     {
-        path: '/company/:id',
+        path: '/companies/:id',
         name: 'CompanyDetails',
         component: () => import('@/views/CompanyDetails.vue'),
-    }
+    },
+    {
+        path: '/users/:id',
+        name: 'UserDetails',
+        component: () => import('@/views/UserDetails.vue'),
+    },
 ];
 
 const router = new VueRouter({
