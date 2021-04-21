@@ -15,6 +15,21 @@ const routes = [
         component: () => import('@/views/Jobs.vue'),
     },
     {
+        path: '/job',
+        name: 'JobDetails',
+        component: () => import('@/views/JobDetails.vue'),
+    },
+    {
+        path: '/companies/create',
+        name: 'CreateCompany',
+        component: () => import('@/views/CreateCompany.vue'),
+    },
+    {
+        path: '/company/:id',
+        name: 'CompanyDetails',
+        component: () => import('@/views/CompanyDetails.vue'),
+    },
+    {
         path: '/users/:id',
         name: 'UserDetails',
         component: () => import('@/views/UserDetails.vue'),

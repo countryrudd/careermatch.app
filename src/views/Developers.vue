@@ -1,21 +1,19 @@
 <template>
     <div>
-        <div>
-            <h3 class="mb-4">Developers</h3>
-            <div class="row no-gutters">
-                <div class="col">
-                    <DevelopersFormCard :search.sync="search"
-                                        :languages.sync="languages"
-                                        :skills.sync="skills"
-                                        :locations.sync="locations"
-                                        :loading="loading"
-                                        @getDevelopers="getDevelopers()" />
-                </div>
-                <div class="col-xl-9">
-                    <DevelopersListCard :loading="loading"
-                                        :loading-error="loadingError"
-                                        :developers="developers" />
-                </div>
+        <h3 class="mb-4">Developers</h3>
+        <div class="row no-gutters">
+            <div class="col">
+                <DevelopersFormCard :search.sync="search"
+                                    :languages.sync="languages"
+                                    :skills.sync="skills"
+                                    :locations.sync="locations"
+                                    :loading="loading"
+                                    @getDevelopers="getDevelopers()" />
+            </div>
+            <div class="col-xl-9">
+                <DevelopersListCard :loading="loading"
+                                    :loading-error="loadingError"
+                                    :developers="developers" />
             </div>
         </div>
     </div>
