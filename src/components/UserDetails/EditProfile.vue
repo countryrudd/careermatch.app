@@ -16,7 +16,7 @@
                     <input v-model="user.avatar_url" type="text" required><br><br>
                     <h4>Edit Location</h4>
                     <input v-model="user.location" type="text" required><br><br>
-                    <h4>Edit LinkedIn Link</h4>
+                    <h4>Edit LinkedIn Id</h4>
                     <input v-model="user.linkedin_id" type="text" required><br><br>
                     <h4>Edit Description</h4>
                     <textarea v-model="user.bio" rows="4" cols="50" required /><br>
