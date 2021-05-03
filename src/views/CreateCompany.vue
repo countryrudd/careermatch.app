@@ -293,8 +293,7 @@
                 this.processingError = null;
                 try {
                     const { data: company } = await createCompany(this.company);
-                    // TODO: Redirect to CompanyDetails page.
-                    this.$router.push({ name: 'Developers' })
+                    this.$router.push({ name: 'CompanyDetails', params: { 'id': company.id }})
                 } catch (error) {
                     this.processingError = error;
                 } finally {
