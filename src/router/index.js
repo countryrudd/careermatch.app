@@ -34,6 +34,16 @@ const routes = [
         name: 'UserDetails',
         component: () => import('@/views/UserDetails.vue'),
     },
+    // 404 Route -------------------------------------------------------------------------------------------------------
+    {
+        name: '404',
+        path: '/404',
+        component: () => import('@/views/404.vue'),
+    },
+    {
+        path: '*',
+        redirect: '404',
+    },
 ];
 
 const router = new VueRouter({
