@@ -11,6 +11,7 @@
                 </div>
                 <h3 class="text-center">{{ job.title }}</h3>
                 <p class="text-center"><em>{{ job.company_name }}</em></p>
+                <a class="btn btn-primary mt-4" v-bind:href="'mailto:' + job.email">Apply for this Position</a>
             </section>
             <section class="row no-gutters">
                 <div class="col-xl-6">
@@ -31,7 +32,7 @@
 
                 <div class="col-xl-6">
                     <br>
-                    <h4 class="mb-1" style="text-align: center">Open Positions</h4>
+                    <h4 class="mb-1" style="text-align: center">Other Open Positions</h4>
                     <JobOtherPositionsCard :jobs="jobs" />
                 </div>
             </section>
@@ -47,7 +48,7 @@
     import JobCompanyCard from '@/components/Jobs/JobCompanyCard';
     import JobOtherPositionsCard from '@/components/Jobs/JobOtherPositionsCard';
     import { getJob } from '@/services/JobService';
-    import { getJobs } from '@/services/JobService';
+    import { getCompanyJobs } from '@/services/JobService';
 
     export default {
         name: 'JobDetails',
@@ -68,7 +69,7 @@
             }
         },
         watch: {
-            '$route.query.id'(){
+            '$route.params.id'(){
                 this.getJob();
             }
         },
@@ -78,9 +79,9 @@
         methods: {
             async getJob() {
                 try {
-                    const { data: job } = await getJob(this.$route.query.id);
+                    const { data: job } = await getJob(this.$route.params.id);
                     this.job = job;
-                    const { data: jobs } = await getJobs(true);
+                    const { data: jobs } = await getCompanyJobs(true);
                     this.jobs = jobs;
                 } catch (error) {
                     this.loadingError = error;
@@ -91,3 +92,4 @@
         }
     }
 </script>
+
