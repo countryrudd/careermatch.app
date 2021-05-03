@@ -40,3 +40,7 @@ export const getUsers = (is_developer, search, languages, skills, locations) => 
 export const getUser = (id) => {
     return axios.get(`/users/${id}/`);
 };
+
+export const editProfile = (id, data) => {
+    return axios.patch(`/users/${id}/`, data);
+};
