@@ -86,6 +86,38 @@
                                 <div v-else-if="currentPage === 4" :key="4">
                                     <form @submit.prevent="currentPage++" class="d-flex flex-column align-items-center">
                                         <transition name="fade" mode="out-in">
+                                            <span v-if="company.email" key="company_email_1">
+                                                <span class="text-primary">{{ company.email }}</span>, okay!
+                                            </span>
+                                            <span v-else key="company_email_0">
+                                                What email should people contact them by?
+                                            </span>
+                                        </transition>
+                                        <div>
+                                            <input v-model="company.email"
+                                                   type="text"
+                                                   class="form-control form-control-sm mt-3"
+                                                   required>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            <button @click="currentPage--"
+                                                    type="button"
+                                                    class="btn btn-sm btn-outline-secondary">
+                                                Back
+                                            </button>
+                                            <transition name="fade">
+                                                <button v-if="company.email"
+                                                        type="submit"
+                                                        class="btn btn-sm btn-outline-primary ms-2">
+                                                    Continue
+                                                </button>
+                                            </transition>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div v-else-if="currentPage === 5" :key="5">
+                                    <form @submit.prevent="currentPage++" class="d-flex flex-column align-items-center">
+                                        <transition name="fade" mode="out-in">
                                             <span v-if="company.slogan" key="company_slogan_1">
                                                 "<span class="text-primary">{{ company.slogan }}</span>" Wow, that's great!
                                             </span>
@@ -120,7 +152,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div v-else-if="currentPage === 5" :key="5">
+                                <div v-else-if="currentPage === 6" :key="6">
                                     <form @submit.prevent="currentPage++"
                                           class="d-flex flex-column align-items-center py-3 align-items-center">
                                         <transition-group name="fade-in" class="d-flex align-items-center">
@@ -176,7 +208,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div v-else-if="currentPage === 6" :key="6">
+                                <div v-else-if="currentPage === 7" :key="7">
                                     <form @submit.prevent="createCompany()"
                                           class="d-flex flex-column align-items-center py-3">
                                         <img v-if="valid_logo"
@@ -186,6 +218,7 @@
                                         <FontAwesomeIcon v-else icon="building" style="font-size: 5vw;" />
                                         <h5 class="text-primary mt-3">{{ company.name }}</h5>
                                         <span v-if="company.slogan" class="mb-2">{{ company.slogan }}</span>
+                                        <small>{{ company.email }}</small>
                                         <small>{{ company.location }}</small>
                                         <div class="d-flex justify-content-center mt-3">
                                             <button @click="currentPage--"
@@ -234,6 +267,7 @@
                 company: {
                     name: null,
                     location: null,
+                    email: null,
                     slogan: '',
                     logo_url: '',
                 },
