@@ -3,7 +3,7 @@
         <div class="card-body">
             <div v-for="job in jobs" :key="job.id" class="row no-gutters mb-2">
                 <div class="col-10 pl-3">
-                    <router-link :to="{ name: 'JobDetails', query: { id: job.id }}" style="text-decoration: none;">
+                    <router-link :to="{ name: 'JobDetails', params: { id: job.id }}" style="text-decoration: none;">
                         <h5 class="mb-1">{{ job.title }}</h5>
                     </router-link>
                     <div class="d-flex">
