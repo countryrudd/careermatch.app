@@ -2,24 +2,33 @@
     <nav class="navbar navbar-light sticky-top shadow bg-white">
         <div class="container d-flex">
             <div class="d-flex align-items-center ms-auto">
-                <button type="button"
-                        class="btn d-flex p-0"
-                        aria-expanded="false"
-                        data-toggle="dropdown"
-                        href="#">
-                    <FontAwesomeIcon icon="bell" style="color: #d1d3e2;" />
-                    <span class="badge bg-danger bg-counter">1</span>
-                </button>
                 <div class="navbar-divider" />
-                <small>Craig White</small>
+                <div class="dropdown">
+                    <button class="btn btn-link text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                        <small>{{ $auth.user.name }}</small>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li @click="$auth.logout()">
+                            <button role="link" class="dropdown-item">
+                                <FontAwesomeIcon icon="sign-out-alt" class="me-2" />
+                                Sign Out
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
 </template>
 
 <script>
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
     export default {
-        name: 'TopNavbar'
+        name: 'TopNavbar',
+        components: {
+            FontAwesomeIcon
+        },
     }
 </script>
 
@@ -29,10 +38,5 @@
         border-right: 1px solid #e3e6f0;
         height: 2.375rem;
         margin: auto 1rem;
-    }
-
-    .bg-counter {
-        font-size: .4rem;
-        margin-top: -.25rem;
     }
 </style>

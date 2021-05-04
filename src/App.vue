@@ -1,13 +1,16 @@
 <template>
     <div id="app">
-        <div class="d-flex">
-            <SideNavbar />
+        <LoadingSpinner v-if="$auth.loading" class="min-vh-75" />
+        <div v-else-if="$auth.isAuthenticated" class="d-flex">
+            <SideNavbar v-if="displayNavbar" />
             <div class="d-flex flex-column w-100">
-                <TopNavbar class="mb-4 w-100" style="height: min-content;" />
+                <TopNavbar v-if="displayNavbar" class="mb-4 w-100" style="height: min-content;" />
                 <div class="container mb-4">
-                    <router-view />
+                    <transition name="fade" mode="out-in">
+                        <router-view />
+                    </transition>
                 </div>
-                <Footer class="mt-auto" />
+                <Footer v-if="displayNavbar" class="mt-auto" />
             </div>
         </div>
     </div>
@@ -17,12 +20,19 @@
     import TopNavbar from '@/components/Navbars/TopNavbar';
     import SideNavbar from '@/components/Navbars/SideNavbar';
     import Footer from '@/components/Footer';
+    import LoadingSpinner from '@/components/Loading/LoadingSpinner';
 
     export default {
         components: {
             TopNavbar,
             SideNavbar,
             Footer,
+            LoadingSpinner
+        },
+        computed: {
+            displayNavbar() {
+                return this.$route.matched.length && !(this.$route.meta.navbar === false)
+            }
         },
     }
 </script>
@@ -77,5 +87,20 @@
 
     .w-100 {
         width: 100%;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .25s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
+
+    .fade-in-enter-active {
+        transition: opacity .25s;
+    }
+
+    .fade-in-enter {
+        opacity: 0;
     }
 </style>

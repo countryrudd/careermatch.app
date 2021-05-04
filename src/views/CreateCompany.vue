@@ -268,20 +268,3 @@
         }
     }
 </script>
-
-<style scoped>
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .25s;
-}
-.fade-enter, .fade-leave-to {
-    opacity: 0;
-}
-
-.fade-in-enter-active {
-    transition: opacity .25s;
-}
-
-.fade-in-enter {
-    opacity: 0;
-}
-</style>

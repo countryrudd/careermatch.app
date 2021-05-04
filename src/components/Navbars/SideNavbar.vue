@@ -11,7 +11,7 @@
             <SideNavbarItem name="Jobs" icon="list" :route="{ name: 'Jobs' }" :expanded="expanded" />
             <SideNavbarItem name="Profile"
                             icon="user"
-                            :route="{ name: 'UserDetails', params: { 'id': '9926e2a5-2fc4-44dd-a3e9-8d956b84f89b' } }"
+                            :route="{ name: 'UserDetails', params: { 'id': $auth.user.id } }"
                             :expanded="expanded" />
             <div @mouseleave="showCompanyOptions = false">
                 <a @click="showCompanyOptions = !showCompanyOptions"
@@ -23,9 +23,11 @@
                     Companies
                 </a>
                 <div v-if="showCompanyOptions">
-                    <SideNavbarItem name="MedShift"
+                    <SideNavbarItem v-for="position in $auth.user.positions"
+                                    :key="position.company.id"
+                                    :name="position.company.name"
                                     icon="building"
-                                    :route="{ name: 'CompanyDetails', params: { 'id': 'ffe48a32-919e-4ee0-ba80-5892aeda786b' } }"
+                                    :route="{ name: 'CompanyDetails', params: { 'id': position.company.id } }"
                                     :expanded="expanded" />
                     <SideNavbarItem name="Create a Company"
                                     icon="plus"

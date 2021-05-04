@@ -1,6 +1,6 @@
 <template>
     <div class="min-vh-75 row d-flex align-items-center justify-content-center text-center">
-        <div class="col-sm-10 col-md-8 col-lg-6 col-xxl-5">
+        <div class="col-sm-10 col-md-8 col-lg-6">
             <div class="card">
                 <div class="card-body p-4 p-sm-5">
                     <div class="display-1">404</div>
