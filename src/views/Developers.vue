@@ -1,5 +1,7 @@
 <template>
-    <div>
+    <LoadingSpinner v-if="loading" class="min-vh-75" />
+    <LoadingError v-else-if="loadingError" class="min-vh-75" />
+    <div v-else>
         <h3 class="mb-4">Developers</h3>
         <div class="row no-gutters">
             <div class="col">
@@ -23,12 +25,16 @@
     import DevelopersFormCard from '@/components/Developers/DevelopersFormCard';
     import DevelopersListCard from '@/components/Developers/DevelopersListCard';
     import { getUsers } from '@/services/UserService';
+    import LoadingSpinner from '@/components/Loading/LoadingSpinner';
+    import LoadingError from '@/components/Loading/LoadingError';
 
     export default {
         name: 'Developers',
         components: {
             DevelopersFormCard,
             DevelopersListCard,
+            LoadingSpinner,
+            LoadingError,
         },
         data() {
             return {
