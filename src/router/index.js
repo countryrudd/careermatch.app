@@ -29,6 +29,10 @@ const routes = [
     },
     // General Routes --------------------------------------------------------------------------------------------------
     {
+        path: '/',
+        redirect: { name: 'Developers' },
+    },
+    {
         path: '/developers',
         name: 'Developers',
         component: () => import('@/views/Developers.vue'),
@@ -74,7 +78,7 @@ const routes = [
     },
     {
         path: '*',
-        redirect: '404',
+        redirect: { name: '404' },
     },
 ];
 
