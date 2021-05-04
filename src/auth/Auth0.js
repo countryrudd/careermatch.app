@@ -43,22 +43,6 @@ export const Auth0 = () => {
             }
         },
         methods: {
-            /** Authenticates the user using a popup window */
-            async loginWithPopup(options, config) {
-                this.popupOpen = true;
-
-                try {
-                    await this.auth0Client.loginWithPopup(options, config);
-                } catch (e) {
-                    // eslint-disable-next-line
-                    console.error(e);
-                } finally {
-                    this.popupOpen = false;
-                }
-
-                await this._setUserState();
-                this.isAuthenticated = true;
-            },
             /** Handles the callback when logging in using a redirect */
             async handleRedirectCallback(url) {
                 try {
