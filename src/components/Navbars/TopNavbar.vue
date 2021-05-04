@@ -4,7 +4,14 @@
             <div class="d-flex align-items-center ms-auto">
                 <div class="navbar-divider" />
                 <div class="dropdown">
-                    <button class="btn btn-link text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                    <button class="btn btn-link text-dark d-flex align-items-center"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="text-decoration: none;">
+                        <span v-if="$auth.user.avatar_url"
+                              class="avatar me-3"
+                              :style="{ 'background-image': `url(${$auth.user.avatar_url})` }" />
                         <small>{{ $auth.user.name }}</small>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -37,6 +44,14 @@
         width: 0;
         border-right: 1px solid #e3e6f0;
         height: 2.375rem;
-        margin: auto 1rem;
+        margin: auto 0.5rem;
+    }
+
+    .avatar {
+        width: 2.375rem;
+        height: 2.375rem;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-radius: 100%;
     }
 </style>
