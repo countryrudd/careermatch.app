@@ -4,21 +4,21 @@ export const AuthGuard = (to, _from, next) => {
     const authService = getInstance();
 
     const fn = () => {
+        if (to.meta.requiresAuthentication && !authService.isAuthenticated) {
+            return next({ name: '404' });
+        }
+
         if ('/authorized' === to.path) {
             try {
                 authService.handleRedirectCallback(to.fullPath)
-                next({ name: 'Developers' });
+                return next({ name: 'Developers' });
             } catch (err) {
                 authService.logout();
             }
         }
 
         if ('/login' === to.path) {
-            if (authService.isAuthenticated) {
-                next({ name: 'Developers' });
-            } else {
-                authService.logout();
-            }
+            return next({ name: 'Developers' });
         }
 
         if ('/logout' === to.path) {
@@ -27,20 +27,20 @@ export const AuthGuard = (to, _from, next) => {
 
         if ('/welcome' === to.path) {
             if (authService.user.finished_registration) {
-                next({ name: 'Developers' });
+                return next({ name: 'Developers' });
             } else {
-                next();
+                return next();
             }
         }
 
         if (authService.isAuthenticated) {
             if (!authService.user.finished_registration && to.path !== '/welcome') {
-                next({ name: 'Welcome' });
+                return next({ name: 'Welcome' });
             } else {
-                next();
+                return next();
             }
         } else {
-            authService.login();
+            return next();
         }
     };
 

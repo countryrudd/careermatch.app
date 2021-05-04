@@ -3,7 +3,7 @@
         <div class="container d-flex">
             <div class="d-flex align-items-center ms-auto">
                 <div class="navbar-divider" />
-                <div class="dropdown">
+                <div v-if="$auth.isAuthenticated" class="dropdown">
                     <button class="btn btn-link text-dark d-flex align-items-center"
                             type="button"
                             data-bs-toggle="dropdown"
@@ -22,6 +22,14 @@
                             </button>
                         </li>
                     </ul>
+                </div>
+                <div v-else>
+                    <button @click="$auth.login()"
+                            class="btn btn-link text-dark d-flex align-items-center"
+                            type="button"
+                            style="text-decoration: none;">
+                        <small>Log In</small>
+                    </button>
                 </div>
             </div>
         </div>

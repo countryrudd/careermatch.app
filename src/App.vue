@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <LoadingSpinner v-if="$auth.loading" class="min-vh-75" />
-        <div v-else-if="$auth.isAuthenticated" class="d-flex">
+        <div v-else class="d-flex">
             <SideNavbar v-if="displayNavbar" />
             <div class="d-flex flex-column w-100">
                 <TopNavbar v-if="displayNavbar" class="mb-4 w-100" style="height: min-content;" />

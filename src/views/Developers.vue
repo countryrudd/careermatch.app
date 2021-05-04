@@ -54,11 +54,13 @@
                         this.languages,
                         this.skills,
                         this.locations,
+                        null,
+                        null,
                     );
                     this.developers = developers;
                     this.loadingError = null;
-                } catch ({ response: { data }}) {
-                    this.loadingError = data;
+                } catch (error) {
+                    this.loadingError = error;
                 } finally {
                     this.loading = false;
                 }
