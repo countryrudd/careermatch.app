@@ -1,5 +1,5 @@
 <template>
-    <div class="col">
+    <div v-if="editUser" class="col">
         <button type="button "
                 class="btn btn-primary btn-right"
                 data-bs-toggle="modal"
@@ -12,18 +12,26 @@
             </template>
             <template v-slot:body>
                 <form @submit.prevent="editProfile()">
-                    <h4>Edit Image</h4>
-                    <input v-model="user.avatar_url" type="text" required><br><br>
                     <h4>Edit Location</h4>
-                    <input v-model="user.location" type="text" required><br><br>
-                    <h4>Edit LinkedIn Id</h4>
-                    <input v-model="user.linkedin_id" type="text" required><br><br>
+                    <input v-model="editUser.location" type="text" required><br><br>
+                    <h4>Edit Location Flexibility</h4>
+                    <input v-model="editUser.location_flexibility" type="text" required><br><br>
                     <h4>Edit Description</h4>
-                    <textarea v-model="user.bio" rows="4" cols="50" required /><br>
+                    <textarea v-model="editUser.bio" rows="4" cols="50" required /><br>
                     <h4>Edit Skills</h4>
-                    <textarea v-model="user.skills" type="list" rows="4" cols="50" required /><br>
+                    <form @submit.prevent>
+                        <DevelopersFormCardSection title=""
+                                                   :selections="editUser.skills"
+                                                   type="skill"
+                                                   @update:skill="editUser.skills = $event" />
+                    </form>
                     <h4>Edit Languages</h4>
-                    <textarea v-model="user.languages" type="list" rows="4" cols="50" required /><br>
+                    <form @submit.prevent>
+                        <DevelopersFormCardSection title=""
+                                                   :selections="editUser.languages"
+                                                   type="language"
+                                                   @update:language="editUser.languages = $event" />
+                    </form>
                 </form>
             </template>
             <template v-slot:footer>
@@ -46,37 +54,33 @@
 <script>
     import Modal from '@/components/Modal';
     import { editProfile } from '@/services/UserService';
-    import { getUser } from '@/services/UserService';
+    import DevelopersFormCardSection from '@/components/Developers/DevelopersFormCardSection';
 
     export default {
         name: 'EditProfile',
         components: {
             Modal,
+            DevelopersFormCardSection,
+        },
+        props: {
+            user: { type: Object, required: true }
         },
         data: () => ({
-            loading: true,
-            loadingError: null,
-            user: null,
+            processing: false,
+            processingError: null,
             valid_image: true,
+            editUser: null,
         }),
-        async mounted() {
-            this.loading = true;
-            try {
-                const { data: user } = await getUser(this.$route.params.id);
-                this.user = user;
-            } catch (error) {
-                this.loadingError = error;
-            } finally {
-                this.loading = false;
-            }
+        mounted() {
+            this.editUser = { ...this.user };
         },
         methods: {
             async editProfile() {
                 this.processing = true;
                 this.processingError = null;
                 try {
-                    const { data: user } = await editProfile(this.$route.params.id, this.user);
-                    this.$router.push({ name: 'UserDetails' })
+                    const { data: user } = await editProfile(this.$route.params.id, this.editUser);
+                    this.$emit('update:user', user);
                 } catch (error) {
                     this.processingError = error;
                 } finally {

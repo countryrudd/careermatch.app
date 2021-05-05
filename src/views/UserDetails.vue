@@ -2,15 +2,15 @@
     <div>
         <LoadingSpinner v-if="loading" class="vh-75" />
         <LoadingError v-else-if="loadingError" class="vh-75" />
-        <EditProfile />
-        <div class="d-flex flex-column">
+        <div v-else class="d-flex flex-column">
+            <EditProfile v-if="canEdit" :user.sync="user" />
             <div class="d-flex flex-column align-items-center justify-content-center text-center text-secondary">
                 <div v-if="user.avatar_url" class="avatar" :style="{ 'background-image': `url(${user.avatar_url})` }" />
                 <FontAwesomeIcon v-else icon="user" class="mb-3" style="font-size: 5vw;" />
                 <h3>{{ user.name }}</h3>
                 <h5 v-if="user.bio" class="mb-0">{{ user.bio }}</h5>
                 <h6 v-if="user.location" class="mb-0">{{ user.location }} - {{ user.location_flexibility }}</h6><br>
-                <a :href="`https://www.linkedin.com/in/${user.linkedin_id}/`" class="mb-2" style="text-decoration: none;">
+                <a :href="`https://www.linkedin.com/in/${user.linkedin_username}/`" class="mb-2" style="text-decoration: none;">
                     <FontAwesomeIcon icon="user" style="font-size: 3vw;" />
                 </a>
             </div>
@@ -70,6 +70,14 @@
             user: null,
             repositories: null,
         }),
+        computed: {
+            canEdit() {
+                if (this.$auth.isAuthenticated && this.user) {
+                    return this.$auth.user.id == this.user.id;
+                }
+                return false;
+            },
+        },
         async mounted() {
             this.loading = true;
             try {
