@@ -52,7 +52,7 @@ export const Auth0 = () => {
                         await this._setUserState();
                     }
                 } catch (error) {
-                    this.logout()
+                    this.logout();
                 } finally {
                     this.loading = false;
                 }
@@ -66,6 +66,7 @@ export const Auth0 = () => {
             },
             /** Logs the user out and removes their session on the authorization server */
             logout() {
+                this.loading = true;
                 return this.auth0Client.logout({ returnTo: `${process.env.VUE_APP_BASE_URL}/login` });
             },
             async _setUserState() {

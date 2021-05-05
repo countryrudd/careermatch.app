@@ -3,15 +3,10 @@ import { getInstance } from './Auth0';
 export const AuthGuard = (to, _from, next) => {
     const authService = getInstance();
 
-    const fn = () => {
-        if (to.meta.requiresAuthentication && !authService.isAuthenticated) {
-            return next({ name: '404' });
-        }
-
+    const fn = async () => {
         if ('/authorized' === to.path) {
             try {
-                authService.handleRedirectCallback(to.fullPath)
-                return next({ name: 'Developers' });
+                await authService.handleRedirectCallback(to.fullPath);
             } catch (err) {
                 authService.logout();
             }
@@ -36,9 +31,15 @@ export const AuthGuard = (to, _from, next) => {
         if (authService.isAuthenticated) {
             if (!authService.user.finished_registration && to.path !== '/welcome') {
                 return next({ name: 'Welcome' });
+            } else if ('/authorized' === to.path) {
+                return next({ name: 'Developers' });
             } else {
                 return next();
             }
+        } else if (to.meta.requiresAuthentication) {
+            return next({ name: '404' });
+        } else if ('/authorized' === to.path) {
+            return next({ name: 'Developers' });
         } else {
             return next();
         }
@@ -50,8 +51,8 @@ export const AuthGuard = (to, _from, next) => {
     }
 
     // Watch for the loading property to change before we check isAuthenticated
-    authService.$watch('loading', loading => {
-        if (loading === false) {
+    authService.$watch('loading', (loading) => {
+        if (!loading) {
             return fn();
         }
     });
