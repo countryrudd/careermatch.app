@@ -1,6 +1,6 @@
 <template>
     <router-link :to="route"
-                 class="sidebar-link d-flex align-items-center mb-4 px-3"
+                 class="sidebar-link d-flex align-items-center mb-4 px-3 text-center"
                  :class="[ expanded ? '' : 'flex-column' ]">
         <FontAwesomeIcon :icon="icon" :class="[ expanded ? 'me-2' : 'mb-1' ]" style="font-size: 0.75rem;" />
         {{ name }}

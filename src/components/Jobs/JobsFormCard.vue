@@ -1,83 +1,53 @@
 <template>
     <div class="card shadow">
         <div class="card-body">
-            <form class="d-flex flex-column">
-                <fieldset>
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Search">
-                    </div>
-
-                    <h5 class="mt-3">Programming Skills Required</h5>
-                    <div class="form-group d-flex flex-row align-items-center flex-wrap">
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-1">
-                            <label class="form-check-label" for="formCheck-1">Python</label>
-                        </div>
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-2">
-                            <label class="form-check-label" for="formCheck-2">JavaScript</label>
-                        </div>
-                        <button class="btn btn-link text-secondary" type="button">Add a skill</button>
-                    </div>
-
-                    <h5 class="mt-3">Language</h5>
-                    <div class="form-group d-flex flex-row align-items-center flex-wrap">
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-3">
-                            <label class="form-check-label" for="formCheck-1">English</label>
-                        </div>
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-4">
-                            <label class="form-check-label" for="formCheck-2">Hindi</label>
-                        </div>
-                        <button class="btn btn-link text-secondary" type="button">Add a skill</button>
-                    </div>
-
-                    <h5 class="mt-3">Location</h5>
-                    <div class="form-group d-flex flex-row align-items-center flex-wrap">
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-5">
-                            <label class="form-check-label" for="formCheck-3">Cary, NC</label>
-                        </div>
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-6">
-                            <label class="form-check-label" for="formCheck-4">Charlotte, NC</label>
-                        </div>
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-7">
-                            <label class="form-check-label" for="formCheck-5">Raleigh, NC</label>
-                        </div>
-                        <button class="btn btn-link text-secondary" type="button">Add a location</button>
-                    </div>
-
-                    <h5 class="mt-3">Workplace Culture Tags</h5>
-                    <div class="form-group d-flex flex-row align-items-center flex-wrap">
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-8">
-                            <label class="form-check-label" for="formCheck-6">Fast-Paced Environment</label>
-                        </div>
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-9">
-                            <label class="form-check-label" for="formCheck-7">Startup</label>
-                        </div>
-                        <div class="form-check" style="margin-right: 15px;">
-                            <input class="form-check-input" type="checkbox" id="formCheck-10">
-                            <label class="form-check-label" for="formCheck-8">Task-Oriented</label>
-                        </div>
-                        <button class="btn btn-link text-secondary" type="button">Add a workplace culture tag</button>
-                    </div>
-
-                </fieldset>
-                <button class="btn btn-primary mt-4" type="submit">
-                    Submit
-                </button>
-            </form>
+            <fieldset :disabled="loading">
+                <div class="form-group">
+                    <input @input="$emit('update:search', $event.target.value)"
+                           @keypress.enter="$emit('getJobs')"
+                           class="form-control"
+                           type="text"
+                           placeholder="Search">
+                </div>
+                <JobsFormCardSection title="Languages"
+                                     :selections="languages"
+                                     type="language"
+                                     @update:language="$emit('update:languages', $event)" />
+                <JobsFormCardSection title="Skills"
+                                     :selections="skills"
+                                     type="skill"
+                                     @update:skill="$emit('update:skills', $event)" />
+                <JobsFormCardSection title="Locations"
+                                     :selections="locations"
+                                     type="location"
+                                     @update:location="$emit('update:locations', $event)" />
+                <JobsFormCardSection title="Cultures"
+                                     :selections="cultures"
+                                     type="culture"
+                                     @update:location="$emit('update:cultures', $event)" />
+            </fieldset>
+            <button @click="$emit('getJobs')" class="btn btn-primary mt-4" type="button">
+                Submit
+            </button>
         </div>
     </div>
 </template>
 
 <script>
+    import JobsFormCardSection from '@/components/Jobs/JobsFormCardSection.vue';
+
     export default {
-        name: 'JobsFormCard'
+        name: 'JobsFormCard',
+        components: {
+            JobsFormCardSection,
+        },
+        props: {
+            search: { type: [String, null], default: null },
+            languages: { type: Array, required: true },
+            skills: { type: Array, required: true },
+            locations: { type: Array, required: true },
+            cultures: { type: Array, required: true },
+            loading: { type: Boolean, required: true },
+        },
     }
 </script>
