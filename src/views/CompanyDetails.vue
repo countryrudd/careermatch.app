@@ -20,7 +20,6 @@
             <section class="py-4 text-center">
                 <h2 class="text-secondary mb-3">We are <span class="text-primary">{{ company.name }}</span></h2>
                 <h5 class="text-secondary">{{ company.slogan }}</h5>
-                <h6 class="text-secondary">{{ company.email }}</h6>
                 <h6 class="text-secondary">{{ company.location }}</h6>
             </section>
             <section v-if="company.jobs.length">
@@ -57,7 +56,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <div class="form-group" id="main">
                 <div class="d-flex">
                     <div class="center" style="margin-bottom: 20px;position: relative;top: 90%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
