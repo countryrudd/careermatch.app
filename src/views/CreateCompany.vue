@@ -95,7 +95,7 @@
                                         </transition>
                                         <div>
                                             <input v-model="company.email"
-                                                   type="text"
+                                                   type="email"
                                                    class="form-control form-control-sm mt-3"
                                                    required>
                                         </div>
@@ -209,6 +209,55 @@
                                     </form>
                                 </div>
                                 <div v-else-if="currentPage === 7" :key="7">
+                                    <form @submit.prevent="currentPage++"
+                                          class="d-flex flex-column align-items-center py-3 align-items-center">
+                                        <span class="mb-4">
+                                            Lastly, tell us a little about your position at this company.
+                                        </span>
+                                        <div class="d-flex flex-column text-start mb-4">
+                                            <div class="d-flex mb-3">
+                                                <div class="me-3">
+                                                    <label for="created_by_position_title" class="text-nowrap">
+                                                        Position Name
+                                                    </label>
+                                                    <input v-model="company.created_by_position_title"
+                                                           id="created_by_position_title"
+                                                           type="text"
+                                                           class="form-control form-control-sm"
+                                                           required>
+                                                </div>
+                                                <div>
+                                                    <label for="created_by_position_start_date">Start Date</label>
+                                                    <input v-model="company.created_by_position_start_date"
+                                                           id="created_by_position_start_date"
+                                                           :max="new Date().toISOString().split('T')[0]"
+                                                           type="date"
+                                                           class="form-control form-control-sm"
+                                                           required>
+                                                </div>
+                                            </div>
+                                            <label for="created_by_position_description">Position Description</label>
+                                            <textarea v-model="company.created_by_position_description"
+                                                      id="created_by_position_description"
+                                                      maxlength="200"
+                                                      class="form-control form-control-sm" />
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <button @click="currentPage--"
+                                                    type="button"
+                                                    class="btn btn-sm btn-outline-secondary">
+                                                Back
+                                            </button>
+                                            <transition name="fade">
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-outline-primary ms-2">
+                                                    Continue
+                                                </button>
+                                            </transition>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div v-else-if="currentPage === 8" :key="8">
                                     <form @submit.prevent="createCompany()"
                                           class="d-flex flex-column align-items-center py-3">
                                         <img v-if="valid_logo"
@@ -226,7 +275,9 @@
                                                     class="btn btn-sm btn-outline-secondary">
                                                 Back
                                             </button>
-                                            <button type="submit" class="btn btn-sm btn-outline-primary ms-2">
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-outline-primary ms-2"
+                                                    :class="[processingError ? 'btn-outline-danger' : 'btn-outline-primary']">
                                                 <span v-if="processing"
                                                       class="spinner-border spinner-border-sm me-1"
                                                       role="status"
@@ -270,6 +321,9 @@
                     email: null,
                     slogan: '',
                     logo_url: '',
+                    created_by_position_title: null,
+                    created_by_position_description: '',
+                    created_by_position_start_date: null,
                 },
                 valid_logo: false,
                 image_loading: false,
@@ -293,6 +347,7 @@
                 this.processingError = null;
                 try {
                     const { data: company } = await createCompany(this.company);
+                    await this.$auth._setUserState();
                     this.$router.push({ name: 'CompanyDetails', params: { 'id': company.id }})
                 } catch (error) {
                     this.processingError = error;
@@ -303,20 +358,3 @@
         }
     }
 </script>
-
-<style scoped>
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .25s;
-}
-.fade-enter, .fade-leave-to {
-    opacity: 0;
-}
-
-.fade-in-enter-active {
-    transition: opacity .25s;
-}
-
-.fade-in-enter {
-    opacity: 0;
-}
-</style>

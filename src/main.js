@@ -4,17 +4,21 @@ import router from './router'
 import filters from './filters'
 import '@/services/util/AxiosInterceptor'
 
+import { Auth0 } from '@/auth/Auth0';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 
+Vue.config.productionTip = false
+Vue.prototype.$auth = Auth0();
 
 library.add(fas)
+library.add(fab)
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)
-Vue.config.productionTip = false
 Vue.use(filters);
 
-new Vue({
+export const app = new Vue({
     router,
     render: h => h(App)
 }).$mount('#app')

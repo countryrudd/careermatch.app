@@ -76,6 +76,9 @@
                     const { data: company } = await getCompany(this.$route.params.id);
                     this.company = company;
                 } catch (error) {
+                    if (error?.response?.status === 404) {
+                        this.$router.push({ name: '404' })
+                    }
                     this.loadingError = error;
                 } finally {
                     this.loading = false;
