@@ -2,24 +2,48 @@
     <nav class="navbar navbar-light sticky-top shadow bg-white">
         <div class="container d-flex">
             <div class="d-flex align-items-center ms-auto">
-                <button type="button"
-                        class="btn d-flex p-0"
-                        aria-expanded="false"
-                        data-toggle="dropdown"
-                        href="#">
-                    <FontAwesomeIcon icon="bell" style="color: #d1d3e2;" />
-                    <span class="badge bg-danger bg-counter">1</span>
-                </button>
                 <div class="navbar-divider" />
-                <small>Craig White</small>
+                <div v-if="$auth.isAuthenticated" class="dropdown">
+                    <button class="btn btn-link text-dark d-flex align-items-center"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="text-decoration: none;">
+                        <span v-if="$auth.user.avatar_url"
+                              class="avatar me-3"
+                              :style="{ 'background-image': `url(${$auth.user.avatar_url})` }" />
+                        <small>{{ $auth.user.name }}</small>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li @click="$auth.logout()">
+                            <button role="link" class="dropdown-item">
+                                <FontAwesomeIcon icon="sign-out-alt" class="me-2" />
+                                Sign Out
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div v-else>
+                    <button @click="$auth.login()"
+                            class="btn btn-link text-dark d-flex align-items-center"
+                            type="button"
+                            style="text-decoration: none;">
+                        <small>Log In</small>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 </template>
 
 <script>
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
     export default {
-        name: 'TopNavbar'
+        name: 'TopNavbar',
+        components: {
+            FontAwesomeIcon
+        },
     }
 </script>
 
@@ -28,11 +52,14 @@
         width: 0;
         border-right: 1px solid #e3e6f0;
         height: 2.375rem;
-        margin: auto 1rem;
+        margin: auto 0.5rem;
     }
 
-    .bg-counter {
-        font-size: .4rem;
-        margin-top: -.25rem;
+    .avatar {
+        width: 2.375rem;
+        height: 2.375rem;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-radius: 100%;
     }
 </style>

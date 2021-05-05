@@ -1,11 +1,11 @@
 <template>
     <div>
-        <h5 v-if="title" class="mt-3">{{ title }}</h5>
+        <h5 class="mt-3">{{ title }}</h5>
         <div class="d-flex flex-wrap">
             <div v-for="(selection, index) in selections"
                  :key="selection"
                  class="form-check"
-                 :class="[ index !== selections.length - 1 ? 'me-2' : '']">
+                 :class="[ index !== selection.length - 1 ? 'me-2' : '']">
                 <input @input="$delete(selections, index)"
                        :id="`${selection}Check`"
                        class="form-check-input cursor-pointer"
@@ -25,11 +25,11 @@
         </button>
         <input v-if="adding"
                v-model="value"
-               @blur="value = null; adding = false; addingError = false;"
+               @blur="value = null; adding = false;"
                @keypress.enter="addSelection()"
                ref="input"
                type="text"
-               class="form-control mt-2"
+               class="form-control"
                :class="[addingError ? 'btn-danger' : '']">
         <div v-if="addingError" class="form-text text-danger">
             {{ addingError }}
@@ -39,7 +39,7 @@
 
 <script>
     export default {
-        name: 'DevelopersFormCardSection',
+        name: 'JobsFormCardSection',
         props: {
             title: { type: String, required: true },
             type: { type: String, required: true },
@@ -66,9 +66,6 @@
         },
         methods: {
             addSelection() {
-                if (!this.value) {
-                    return this.addingError = this.type[0].toUpperCase() + this.type.slice(1) + ' must not be blank.';
-                }
                 if (this.selections.includes(this.value)) {
                     return this.addingError = this.type[0].toUpperCase() + this.type.slice(1) + ' already added.';
                 }
