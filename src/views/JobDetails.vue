@@ -11,7 +11,7 @@
                 </div>
                 <h3 class="text-center">{{ job.title }}</h3>
                 <p class="text-center"><em>{{ job.company_name }}</em></p>
-                <a class="btn btn-primary mt-4" v-bind:href="'mailto:' + job.email">Apply for this Position</a>
+                <a class="btn btn-primary mt-4" :href="'mailto:' + job.email">Apply for this Position</a>
             </section>
             <section class="row no-gutters">
                 <div class="col-xl-6">
@@ -84,6 +84,9 @@
                     const { data: jobs } = await getCompanyJobs(true);
                     this.jobs = jobs;
                 } catch (error) {
+                    if (error?.response?.status === 404) {
+                        this.$router.push({ name: '404' })
+                    }
                     this.loadingError = error;
                 } finally {
                     this.loading = false;
