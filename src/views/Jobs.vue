@@ -1,22 +1,22 @@
 <template>
     <div>
-            <h3 class="mb-4">Jobs</h3>
-            <div class="row no-gutters">
-                <div class="col">
-                    <JobsFormCard :search.sync="search"
-                                  :languages.sync="languages"
-                                  :skills.sync="skills"
-                                  :locations.sync="locations"
-                                  :cultures.sync="cultures"
-                                  :loading="loading"
-                                  @getJobs="getJobs()" />
-                </div>
-                <div class="col-xl-9">
-                    <JobsListCard :loading="loading"
-                                  :loading-error="loadingError"
-                                  :jobs="jobs" />
-                </div>
+        <h3 class="mb-4">Jobs</h3>
+        <div class="row no-gutters">
+            <div class="col">
+                <JobsFormCard :search.sync="search"
+                              :languages.sync="languages"
+                              :skills.sync="skills"
+                              :locations.sync="locations"
+                              :cultures.sync="cultures"
+                              :loading="loading"
+                              @getJobs="getJobs()" />
             </div>
+            <div class="col-xl-9">
+                <JobsListCard :loading="loading"
+                              :loading-error="loadingError"
+                              :jobs="jobs" />
+            </div>
+        </div>
     </div>
 </template>
 
