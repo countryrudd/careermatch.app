@@ -62,8 +62,8 @@
                 </div>
             </section>
             <section v-if="company.positions.length">
-                <h4 class="mb-3">Employees</h4>
-                <div class="row" style="margin-bottom:50px">
+                <h4 class="mb-3">Our Team</h4>
+                <div class="row">
                     <div v-for="position in company.positions" :key="position.id" class="col-6 col-xl-3">
                         <div class="card">
                             <div class="card-body d-flex flex-column align-items-center text-center">
