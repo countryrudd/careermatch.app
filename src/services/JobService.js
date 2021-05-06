@@ -10,7 +10,7 @@ export const createJob = (data) => {
 };
 
 /**
- * Gets a list of User objects.
+ * Gets a list of Job objects.
  *
  * @param {boolean} is_active
  * @param {string} search

@@ -10,6 +10,27 @@ export const createCompany = (data) => {
 };
 
 /**
+ * Gets a list of Company objects.
+ *
+ * @param {string} search
+ * @param {string[]} locations
+ */
+export const getCompanies = (search, locations) => {
+    const searchQueryString = search ? `search=${search}` : '';
+    const locationQueryString = locations.length ? `location=${locations.join('&location=')}` : '';
+
+    let combinedQueryString = '';
+
+    [searchQueryString, locationQueryString].forEach((queryString) => {
+        if (queryString) {
+            combinedQueryString = combinedQueryString.concat((combinedQueryString ? '&' : '?') + queryString)
+        }
+    });
+
+    return axios.get('/companies/' + combinedQueryString);
+};
+
+/**
  * Updates an already existing Company.
  *
  * @param {number} id
