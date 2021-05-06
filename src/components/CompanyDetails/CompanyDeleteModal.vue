@@ -52,9 +52,9 @@
                 this.processing = true;
                 try {
                     await deleteCompany(this.company.id);
-                    await this.$auth._setUserState();
                     window.bootstrap.Modal.getInstance(document.getElementById(this.id)).hide();
-                    this.$router.push({ name: 'Developers' });
+                    await this.$auth._setUserState();
+                    this.$router.push({ name: 'Companies' });
                 } catch (error) {
                     this.processingError = error;
                 } finally {
