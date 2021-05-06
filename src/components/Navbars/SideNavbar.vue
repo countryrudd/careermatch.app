@@ -9,11 +9,6 @@
             </div>
             <SideNavbarItem name="Developers" icon="users" :route="{ name: 'Developers' }" :expanded="expanded" />
             <SideNavbarItem name="Jobs" icon="list" :route="{ name: 'Jobs' }" :expanded="expanded" />
-            <SideNavbarItem v-if="$auth.isAuthenticated"
-                            name="Profile"
-                            icon="user"
-                            :route="{ name: 'UserDetails', params: { 'id': $auth.user.id } }"
-                            :expanded="expanded" />
             <div v-if="$auth.isAuthenticated" @mouseleave="showCompanyOptions = false">
                 <a @click="showCompanyOptions = !showCompanyOptions"
                    class="sidebar-link d-flex align-items-center mb-4 px-3 cursor-pointer"

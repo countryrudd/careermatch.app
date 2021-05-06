@@ -143,7 +143,7 @@
         position: relative;
         width: 150px;
         height: 150px;
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
         border-radius: 100px;
         margin-bottom: 30px;

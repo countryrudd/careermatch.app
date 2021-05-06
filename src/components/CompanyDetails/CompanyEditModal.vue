@@ -4,7 +4,7 @@
             <form @submit.prevent="updateCompany()">
                 <fieldset :disabled="processing" class="d-flex flex-column">
                     <div v-if="processingError" class="text-danger mb-4">
-                        Failed to update Company. Please contact support if this problem persists.
+                        Failed to update company. Please contact support if this problem persists.
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <h5 class="mb-0">Editing {{ company.name }}</h5>

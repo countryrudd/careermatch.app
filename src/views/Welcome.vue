@@ -464,7 +464,7 @@
         position: relative;
         width: 150px;
         height: 150px;
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         border-radius: 100px;
