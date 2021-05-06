@@ -10,6 +10,28 @@
                          :alt="company.name"
                          style="max-height: 100%; max-width: 100%; display: block;">
                 </div>
+                <div v-if="companyPosition && (companyPosition.can_edit)"
+                     class="dropdown"
+                     style="position: absolute; right: 10px; top: 10px;">
+                    <button type="button"
+                            class="btn btn-sm btn-outline-light text-nowrap"
+                            data-bs-target="#company-settings-dropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <FontAwesomeIcon icon="pencil-alt" />
+                    </button>
+                    <ul id="company-settings-dropdown" class="dropdown-menu dropdown-menu-end">
+                        <li v-if="companyPosition.can_edit">
+                            <button data-bs-target="#company-edit-modal"
+                                    data-bs-toggle="modal"
+                                    data-bs-dismiss="modal"
+                                    role="link"
+                                    class="dropdown-item">
+                                Edit Company
+                            </button>
+                        </li>
+                    </ul>
+                </div>
                 <a :href="`mailto:${company.email}`"
                    role="button"
                    class="btn btn-sm btn-outline-light text-nowrap"
@@ -56,52 +78,7 @@
                     </div>
                 </div>
             </section>
-
-            <div class="form-group" id="main">
-                <div class="d-flex">
-                    <div class="center" style="margin-bottom: 20px;position: relative;top: 90%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profileModal" data-bs-whatever="@getbootstrap" id="editProfile">Edit Profile</button>
-                    </div>
-                </div>
-                <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Profile</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="company-title" class="col-form-label">Company Title:</label>
-                                        <input type="text" class="form-control" id="company-title" v-model="company.name">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="company-slogan" class="col-form-label">Company Slogan:</label>
-                                        <textarea class="form-control" id="company-slogan" v-model="company.slogan" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="company-email" class="col-form-label">Company Email:</label>
-                                        <textarea class="form-control" id="company-email" v-model="company.email" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="company-location" class="col-form-label">Company Location:</label>
-                                        <textarea class="form-control" id="company-location" v-model="company.location" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="company-logo" class="col-form-label">Company Logo:</label>
-                                        <textarea class="form-control" id="company-logo" v-model="company.logo_url" />
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="editButton" data-bs-dismiss="modal" @click="updateCompany">Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <CompanyEditModal v-if="companyPosition" :company.sync="company" id="company-edit-modal" />
         </div>
     </div>
 </template>
@@ -110,13 +87,14 @@
     import LoadingSpinner from '@/components/Loading/LoadingSpinner';
     import LoadingError from '@/components/Loading/LoadingError';
     import { getCompany } from '@/services/CompanyService';
-    import { updateCompany } from '@/services/CompanyService';
+    import CompanyEditModal from '@/components/CompanyDetails/CompanyEditModal';
 
     export default {
         name: 'CompanyDetails',
         components: {
             LoadingSpinner,
             LoadingError,
+            CompanyEditModal,
         },
         data() {
             return {
@@ -124,6 +102,14 @@
                 loadingError: null,
                 company: null,
             }
+        },
+        computed: {
+            companyPosition() {
+                if (this.$auth.isAuthenticated) {
+                    return this.$auth.user.positions.find(position => position.company.id === this.company.id);
+                }
+                return undefined;
+            },
         },
         watch: {
             '$route.params.id'(){
@@ -142,15 +128,6 @@
                     if (error?.response?.status === 404) {
                         this.$router.push({ name: '404' })
                     }
-                    this.loadingError = error;
-                } finally {
-                    this.loading = false;
-                }
-            },
-            async updateCompany() {
-                try {
-                    const { data: company } = await updateCompany(this.$route.params.id, this.company);
-                } catch (error) {
                     this.loadingError = error;
                 } finally {
                     this.loading = false;
