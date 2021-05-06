@@ -10,7 +10,7 @@
                      :style="{ 'background-image': `url(${user.avatar_url})` }" />
                 <FontAwesomeIcon v-else icon="user" class="mb-3" style="font-size: 5vw;" />
                 <h3>{{ user.name }}</h3>
-                <h5 v-if="user.bio" class="mb-0">{{ user.bio }}</h5>
+                <h5 v-if="user.bio" class="mb-1">{{ user.bio }}</h5>
                 <h6 v-if="user.location" class="mb-2">{{ user.location }}</h6>
                 <a :href="`https://www.linkedin.com/in/${user.linkedin_username}/`" target="_blank" class="mb-2">
                     <FontAwesomeIcon :icon="['fab', 'linkedin']" style="font-size: 1.25rem;" />

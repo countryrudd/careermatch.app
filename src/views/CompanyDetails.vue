@@ -10,13 +10,29 @@
                          :alt="company.name"
                          style="max-height: 100%; max-width: 100%; display: block;">
                 </div>
-                <CompanySettingsDropdown :company.sync="company" />
-                <a :href="`mailto:${company.email}`"
-                   role="button"
-                   class="btn btn-sm btn-outline-light text-nowrap"
-                   style="position: absolute; right: 10px; bottom: 10px;">
-                    Contact Us
-                </a>
+                <div v-if="companyPosition" class="d-flex" style="position: absolute; right: 10px; top: 10px;">
+                    <CompanyNotificationDropdown v-if="companyPosition.is_admin && pendingEmployees.length"
+                                                 :company.sync="company"
+                                                 :pending-positions="pendingEmployees"
+                                                 :current-user-position="companyPosition"
+                                                 class="me-2" />
+                    <CompanySettingsDropdown :company.sync="company" :current-user-position="companyPosition" />
+                </div>
+                <div class="d-flex flex-wrap justify-content-end" style="position: absolute; right: 10px; bottom: 10px;">
+                    <button v-if="!companyPosition"
+                            data-bs-target="#company-position-create-modal"
+                            data-bs-toggle="modal"
+                            data-bs-dismiss="modal"
+                            type="button"
+                            class="btn btn-sm btn-outline-light text-nowrap mb-1">
+                        Do you work here?
+                    </button>
+                    <a :href="`mailto:${company.email}`"
+                       role="button"
+                       class="btn btn-sm btn-outline-light text-nowrap ms-2 mb-1">
+                        Contact Us
+                    </a>
+                </div>
             </section>
             <section class="py-4 text-center">
                 <h2 class="text-secondary mb-3">We are <span class="text-primary">{{ company.name }}</span></h2>
@@ -29,7 +45,7 @@
                     <div v-for="job in company.jobs" :key="job.id" class="col-xl-6">
                         <div class="card">
                             <div class="card-body d-flex flex-column">
-                                <router-link :to="{ name: 'JobDetails', query: { id: job.id }}"
+                                <router-link :to="{ name: 'JobDetails', params: { id: job.id }}"
                                              style="text-decoration: none;">
                                     <h5 class="mb-2">{{ job.title }}</h5>
                                 </router-link>
@@ -43,8 +59,8 @@
             <section v-if="company.positions.length">
                 <h4 class="mb-3">Our Team</h4>
                 <div class="row">
-                    <div v-for="position in company.positions" :key="position.id" class="col-6 col-xl-3">
-                        <div class="card">
+                    <div v-for="position in activeEmployees" :key="position.id" class="col-6 col-xl-3">
+                        <div class="card mb-3">
                             <div class="card-body d-flex flex-column align-items-center text-center">
                                 <div v-if="position.user.avatar_url" class="avatar" :style="{ 'background-image': `url(${position.user.avatar_url})` }" />
                                 <router-link :to="{ name: 'UserDetails', params: { id: position.user.id }}"
@@ -57,6 +73,7 @@
                     </div>
                 </div>
             </section>
+            <CompanyPositionCreateModal id="company-position-create-modal" :company.sync="company" />
         </div>
     </div>
 </template>
@@ -65,6 +82,8 @@
     import LoadingSpinner from '@/components/Loading/LoadingSpinner';
     import LoadingError from '@/components/Loading/LoadingError';
     import CompanySettingsDropdown from '@/components/CompanyDetails/CompanySettingsDropdown';
+    import CompanyPositionCreateModal from '@/components/CompanyDetails/CompanyPositionCreateModal';
+    import CompanyNotificationDropdown from '@/components/CompanyDetails/CompanyNotificationDropdown';
     import { getCompany } from '@/services/CompanyService';
 
     export default {
@@ -72,7 +91,9 @@
         components: {
             LoadingSpinner,
             LoadingError,
+            CompanyNotificationDropdown,
             CompanySettingsDropdown,
+            CompanyPositionCreateModal,
         },
         data() {
             return {
@@ -80,6 +101,23 @@
                 loadingError: null,
                 company: null,
             }
+        },
+        computed: {
+            companyPosition() {
+                if (this.$auth.isAuthenticated) {
+                    const positions = this.$auth?.user?.positions;
+                    if (positions) {
+                        return positions.find(position => position.company.id === this.company.id);
+                    }
+                }
+                return undefined;
+            },
+            activeEmployees() {
+                return this.company.positions.filter(position => position.activated)
+            },
+            pendingEmployees() {
+                return this.company.positions.filter(position => !position.activated)
+            },
         },
         watch: {
             '$route.params.id'(){
