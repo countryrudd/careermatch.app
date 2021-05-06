@@ -10,13 +10,21 @@
                          :alt="company.name"
                          style="max-height: 100%; max-width: 100%; display: block;">
                 </div>
-                <div v-if="companyPosition" class="d-flex" style="position: absolute; right: 10px; top: 10px;">
+                <div v-if="companyPosition"
+                     class="d-flex justify-content-end flex-wrap"
+                     style="position: absolute; right: 10px; top: 10px;">
                     <CompanyNotification v-if="companyPosition.is_admin && pendingEmployees.length"
                                          :company.sync="company"
                                          :pending-positions="pendingEmployees"
                                          :current-user-position="companyPosition"
-                                         class="me-2" />
-                    <CompanySettingsDropdown :company.sync="company" :current-user-position="companyPosition" />
+                                         class="mb-2" />
+                    <CompanyJobCreateButton v-if="companyPosition.can_create_jobs"
+                                            :company.sync="company"
+                                            :current-user-position="companyPosition"
+                                            class="ms-2 mb-2" />
+                    <CompanySettingsDropdown :company.sync="company"
+                                             :current-user-position="companyPosition"
+                                             class="ms-2 mb-2" />
                 </div>
                 <div class="d-flex flex-wrap justify-content-end" style="position: absolute; right: 10px; bottom: 10px;">
                     <button v-if="!companyPosition"
@@ -39,11 +47,11 @@
                 <h5 class="text-secondary">{{ company.slogan }}</h5>
                 <h6 class="text-secondary">{{ company.location }}</h6>
             </section>
-            <section v-if="company.jobs.length">
+            <section v-if="company.jobs.length" class="mb-4">
                 <h4 class="mb-3">We're Hiring!</h4>
                 <div class="row">
                     <div v-for="job in company.jobs" :key="job.id" class="col-xl-6">
-                        <div class="card">
+                        <div class="card mb-3">
                             <div class="card-body d-flex flex-column">
                                 <router-link :to="{ name: 'JobDetails', params: { id: job.id }}"
                                              style="text-decoration: none;">
@@ -56,7 +64,7 @@
                     </div>
                 </div>
             </section>
-            <section v-if="company.positions.length">
+            <section v-if="company.positions.length" class="mb-4">
                 <h4 class="mb-3">Our Team</h4>
                 <div class="row">
                     <div v-for="position in activeEmployees" :key="position.id" class="col-6 col-xl-3">
@@ -84,6 +92,7 @@
     import CompanySettingsDropdown from '@/components/CompanyDetails/CompanySettingsDropdown';
     import CompanyPositionCreateModal from '@/components/CompanyDetails/CompanyPositionCreateModal';
     import CompanyNotification from '@/components/CompanyDetails/CompanyNotification';
+    import CompanyJobCreateButton from '@/components/CompanyDetails/CompanyJobCreateButton';
     import { getCompany } from '@/services/CompanyService';
 
     export default {
@@ -94,6 +103,7 @@
             CompanyNotification,
             CompanySettingsDropdown,
             CompanyPositionCreateModal,
+            CompanyJobCreateButton,
         },
         data() {
             return {
