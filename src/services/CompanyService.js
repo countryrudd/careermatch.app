@@ -27,3 +27,5 @@ export const updateCompany = (id, data) => {
 export const getCompany = (id) => {
     return axios.get(`/companies/${id}/`);
 };
+
+
