@@ -12,3 +12,5 @@ export const createCompany = (data) => {
 export const getCompany = (id) => {
     return axios.get(`/companies/${id}/`);
 };
+
+

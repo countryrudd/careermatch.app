@@ -56,3 +56,7 @@ export const getUser = (id) => {
 export const updateUser = (id, data) => {
     return axios.patch(`/users/${id}/`, data);
 };
+
+export const editProfile = (id, data) => {
+    return axios.patch(`/users/${id}/`, data);
+};
