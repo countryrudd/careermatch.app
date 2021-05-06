@@ -22,7 +22,7 @@
     import CompanyPositionAcceptanceModal from '@/components/CompanyDetails/CompanyPositionAcceptanceModal';
 
     export default {
-        name: 'CompanyNotificationDropdown',
+        name: 'CompanyNotification',
         components: {
             CompanyPositionAcceptanceModal,
         },

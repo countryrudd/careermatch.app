@@ -11,11 +11,11 @@
                          style="max-height: 100%; max-width: 100%; display: block;">
                 </div>
                 <div v-if="companyPosition" class="d-flex" style="position: absolute; right: 10px; top: 10px;">
-                    <CompanyNotificationDropdown v-if="companyPosition.is_admin && pendingEmployees.length"
-                                                 :company.sync="company"
-                                                 :pending-positions="pendingEmployees"
-                                                 :current-user-position="companyPosition"
-                                                 class="me-2" />
+                    <CompanyNotification v-if="companyPosition.is_admin && pendingEmployees.length"
+                                         :company.sync="company"
+                                         :pending-positions="pendingEmployees"
+                                         :current-user-position="companyPosition"
+                                         class="me-2" />
                     <CompanySettingsDropdown :company.sync="company" :current-user-position="companyPosition" />
                 </div>
                 <div class="d-flex flex-wrap justify-content-end" style="position: absolute; right: 10px; bottom: 10px;">
@@ -83,7 +83,7 @@
     import LoadingError from '@/components/Loading/LoadingError';
     import CompanySettingsDropdown from '@/components/CompanyDetails/CompanySettingsDropdown';
     import CompanyPositionCreateModal from '@/components/CompanyDetails/CompanyPositionCreateModal';
-    import CompanyNotificationDropdown from '@/components/CompanyDetails/CompanyNotificationDropdown';
+    import CompanyNotification from '@/components/CompanyDetails/CompanyNotification';
     import { getCompany } from '@/services/CompanyService';
 
     export default {
@@ -91,7 +91,7 @@
         components: {
             LoadingSpinner,
             LoadingError,
-            CompanyNotificationDropdown,
+            CompanyNotification,
             CompanySettingsDropdown,
             CompanyPositionCreateModal,
         },
