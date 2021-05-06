@@ -3,7 +3,8 @@
         <div class="card-body">
             <fieldset :disabled="loading">
                 <div class="form-group">
-                    <input @input="$emit('update:search', $event.target.value)"
+                    <input :value="search"
+                           @input="$emit('update:search', $event.target.value)"
                            @keypress.enter="$emit('getDevelopers')"
                            class="form-control"
                            type="text"
