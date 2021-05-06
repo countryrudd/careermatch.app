@@ -53,12 +53,10 @@
             this.loading = true;
             try {
                 const { data: user } = await getUser(this.$route.params.id);
-
                 if (user.github_username) {
                     const { data: repositories } = await getRepositories(user.github_username);
                     this.repositories = repositories;
                 }
-
                 this.user = user;
             } catch (error) {
                 if (error?.response?.status === 404) {

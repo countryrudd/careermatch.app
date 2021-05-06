@@ -7,15 +7,5 @@ import axios from 'axios';
  * @param {string} github_username
  */
 export const getRepositories = (github_username) => {
-    return axios.get(`https://api.github.com/users/${github_username}/repos`);
-};
-
-/**
- * Gets a list of GitHub languages by a repositories.
- * TODO: Move this logic to the API.
- *
- * @param {string} url
- */
-export const getRepositoryLanguages = (url) => {
-    return axios.get(url);
+    return axios.get(`/github/repositories/?github_username=${github_username}`);
 };
