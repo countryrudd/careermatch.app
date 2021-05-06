@@ -70,6 +70,7 @@
     import GitHubRepositoryCard from '@/components/UserDetails/GitHubRepositoryCard';
     import UserSettingsDropdown from '@/components/UserDetails/UserSettingsDropdown';
     import { getUser } from '@/services/UserService';
+    import { getRepositories } from '@/services/GitHubService';
 
     export default {
         name: 'UserDetails',
