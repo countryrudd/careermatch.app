@@ -18,9 +18,11 @@
             </div>
             <section v-if="user.skills.length">
                 <h4 class="my-3">Skills</h4>
-                <span v-for="skill in user.skills" :key="skill.id" class="me-1">
-                    {{ skill }}
-                </span>
+                <div class="ms-4">
+                    <span v-for="skill in user.skills" :key="skill.id" class="me-1">
+                        {{ skill }}
+                    </span>
+                </div>
             </section>
             <section v-if="user.languages.length">
                 <h4 class="my-3">Spoken/Written Languages</h4>
