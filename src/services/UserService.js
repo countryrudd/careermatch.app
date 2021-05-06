@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /**
- * Gets a list of User objects from the API.
+ * Gets a list of User objects based on various parameters.
  *
  * @param {boolean|null} is_developer
  * @param {string|null} search
@@ -39,7 +39,7 @@ export const getUsers = (is_developer, search, languages, skills, locations, lin
 };
 
 /**
- * Get a single User object from the API.
+ * Get a single User object.
  *
  * @param {string} id
  */
@@ -48,7 +48,7 @@ export const getUser = (id) => {
 };
 
 /**
- * Updates a User object in the API.
+ * Updates a User object.
  *
  * @param {string} id
  * @param {Object} data
@@ -57,6 +57,11 @@ export const updateUser = (id, data) => {
     return axios.patch(`/users/${id}/`, data);
 };
 
-export const editProfile = (id, data) => {
-    return axios.patch(`/users/${id}/`, data);
+/**
+ * Deletes a User object.
+ *
+ * @param {string} id
+ */
+export const deleteUser = (id) => {
+    return axios.delete(`/users/${id}/`);
 };

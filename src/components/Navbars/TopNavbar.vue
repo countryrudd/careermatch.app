@@ -66,7 +66,7 @@
     .avatar {
         width: 2.375rem;
         height: 2.375rem;
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
         border-radius: 100%;
     }
