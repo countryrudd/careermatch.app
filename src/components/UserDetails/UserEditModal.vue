@@ -81,7 +81,6 @@
                     const { data: detailedUser } = await getUser(user.id)
                     this.$emit('update:user', detailedUser);
                     window.bootstrap.Modal.getInstance(document.getElementById(this.id)).hide();
-                    this.$router.push({ name: 'Developers' });
                 } catch (error) {
                     this.processingError = error;
                 } finally {
