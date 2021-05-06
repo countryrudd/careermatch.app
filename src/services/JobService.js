@@ -1,7 +1,16 @@
 import axios from 'axios';
 
 /**
- * Gets a list of User objects from the API.
+ * Create a Job.
+ *
+ * @param {Object} data
+ */
+export const createJob = (data) => {
+    return axios.post('/jobs/', data);
+};
+
+/**
+ * Gets a list of Job objects.
  *
  * @param {boolean} is_active
  * @param {string} search

@@ -67,6 +67,15 @@ const routes = [
         },
     },
     {
+        path: '/companies',
+        name: 'Companies',
+        component: () => import('@/views/Companies.vue'),
+        meta: {
+            navbar: true,
+            requiresAuthentication: false,
+        },
+    },
+    {
         path: '/companies/create',
         name: 'CreateCompany',
         component: () => import('@/views/CreateCompany.vue'),

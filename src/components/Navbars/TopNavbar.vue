@@ -15,8 +15,16 @@
                         <small>{{ $auth.user.name }}</small>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li @click="$auth.logout()">
-                            <button role="link" class="dropdown-item">
+                        <li>
+                            <router-link :to="{ name: 'UserDetails', params: { 'id': $auth.user.id } }"
+                                         tag="button"
+                                         class="dropdown-item">
+                                <FontAwesomeIcon icon="user" class="me-2" />
+                                Profile
+                            </router-link>
+                        </li>
+                        <li>
+                            <button @click="$auth.logout()" role="link" class="dropdown-item">
                                 <FontAwesomeIcon icon="sign-out-alt" class="me-2" />
                                 Sign Out
                             </button>
@@ -58,7 +66,7 @@
     .avatar {
         width: 2.375rem;
         height: 2.375rem;
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
         border-radius: 100%;
     }
