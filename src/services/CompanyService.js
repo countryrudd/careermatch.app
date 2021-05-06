@@ -10,7 +10,7 @@ export const createCompany = (data) => {
 };
 
 /**
- * Gets an already existing Company.
+ * Updates an already existing Company.
  *
  * @param {number} id
  * @param {Object} data
