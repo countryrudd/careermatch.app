@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </section>
-            <section v-if="company.positions.length" class="mb-4">
+            <section v-if="activeEmployees.length" class="mb-4">
                 <h4 class="mb-3">Our Team</h4>
                 <div class="row">
                     <div v-for="position in activeEmployees" :key="position.id" class="col-6 col-xl-3">
