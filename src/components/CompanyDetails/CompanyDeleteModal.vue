@@ -1,17 +1,17 @@
 <template>
     <Modal :id="id" :static-backdrop="processing" centered>
         <template #body>
-            <form @submit.prevent="deleteUser()">
+            <form @submit.prevent="deleteCompany()">
                 <fieldset :disabled="processing" class="d-flex flex-column">
                     <div v-if="processingError" class="text-danger mb-4">
-                        Failed to delete user. Please contact support if this problem persists.
+                        Failed to delete company. Please contact support if this problem persists.
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <h5 class="mb-0">Delete Profile</h5>
                         <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" />
                     </div>
                     <span>
-                        This action is irreversible.
+                        This action is irreversible. All listed jobs will be deleted.
                     </span>
                     <button type="submit"
                             class="btn btn-sm mt-3 ms-auto"
@@ -30,16 +30,16 @@
 
 <script>
     import Modal from '@/components/Modal';
-    import { deleteUser } from '@/services/UserService';
+    import { deleteCompany } from '@/services/CompanyService';
 
     export default {
-        name: 'UserDeleteModal',
+        name: 'CompanyDeleteModal',
         components: {
             Modal,
         },
         props: {
             id: { type: String, required: true },
-            user: { type: Object, required: true },
+            company: { type: Object, required: true },
         },
         data() {
             return {
@@ -48,12 +48,13 @@
             }
         },
         methods: {
-            async deleteUser() {
+            async deleteCompany() {
                 this.processing = true;
                 try {
-                    await deleteUser(this.user.id);
+                    await deleteCompany(this.company.id);
+                    await this.$auth._setUserState();
                     window.bootstrap.Modal.getInstance(document.getElementById(this.id)).hide();
-                    this.$auth.logout();
+                    this.$router.push({ name: 'Developers' });
                 } catch (error) {
                     this.processingError = error;
                 } finally {

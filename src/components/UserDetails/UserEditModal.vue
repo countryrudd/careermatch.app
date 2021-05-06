@@ -1,5 +1,5 @@
 <template>
-    <Modal :id="id" :static-backdrop="processing" :hide="hide" centered>
+    <Modal :id="id" :static-backdrop="processing" centered>
         <template #body>
             <form @submit.prevent="updateUser()">
                 <fieldset :disabled="processing" class="d-flex flex-column">
@@ -70,7 +70,6 @@
             return {
                 processing: false,
                 processingError: null,
-                hide: false,
                 editUser: { ...this.user },
             }
         },
@@ -81,7 +80,8 @@
                     const { data: user } = await updateUser(this.user.id, this.editUser);
                     const { data: detailedUser } = await getUser(user.id)
                     this.$emit('update:user', detailedUser);
-                    this.hide = true;
+                    window.bootstrap.Modal.getInstance(document.getElementById(this.id)).hide();
+                    this.$router.push({ name: 'Developers' });
                 } catch (error) {
                     this.processingError = error;
                 } finally {

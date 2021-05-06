@@ -1,5 +1,5 @@
 <template>
-    <Modal :id="id" :static-backdrop="processing" :hide="hide" centered>
+    <Modal :id="id" :static-backdrop="processing" centered>
         <template #body>
             <form @submit.prevent="updateCompany()">
                 <fieldset :disabled="processing" class="d-flex flex-column">
@@ -62,7 +62,6 @@
             return {
                 processing: false,
                 processingError: null,
-                hide: false,
                 editCompany: { ...this.company },
             }
         },
@@ -73,7 +72,7 @@
                     const { data: company } = await updateCompany(this.company.id, this.editCompany);
                     const { data: detailedCompany } = await getCompany(company.id)
                     this.$emit('update:company', detailedCompany);
-                    this.hide = true;
+                    window.bootstrap.Modal.getInstance(document.getElementById(this.id)).hide();
                 } catch (error) {
                     this.processingError = error;
                 } finally {

@@ -10,28 +10,7 @@
                          :alt="company.name"
                          style="max-height: 100%; max-width: 100%; display: block;">
                 </div>
-                <div v-if="companyPosition && (companyPosition.can_edit)"
-                     class="dropdown"
-                     style="position: absolute; right: 10px; top: 10px;">
-                    <button type="button"
-                            class="btn btn-sm btn-outline-light text-nowrap"
-                            data-bs-target="#company-settings-dropdown"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        <FontAwesomeIcon icon="pencil-alt" />
-                    </button>
-                    <ul id="company-settings-dropdown" class="dropdown-menu dropdown-menu-end">
-                        <li v-if="companyPosition.can_edit">
-                            <button data-bs-target="#company-edit-modal"
-                                    data-bs-toggle="modal"
-                                    data-bs-dismiss="modal"
-                                    role="link"
-                                    class="dropdown-item">
-                                Edit Company
-                            </button>
-                        </li>
-                    </ul>
-                </div>
+                <CompanySettingsDropdown :company.sync="company" />
                 <a :href="`mailto:${company.email}`"
                    role="button"
                    class="btn btn-sm btn-outline-light text-nowrap"
@@ -78,7 +57,6 @@
                     </div>
                 </div>
             </section>
-            <CompanyEditModal v-if="companyPosition" :company.sync="company" id="company-edit-modal" />
         </div>
     </div>
 </template>
@@ -86,15 +64,15 @@
 <script>
     import LoadingSpinner from '@/components/Loading/LoadingSpinner';
     import LoadingError from '@/components/Loading/LoadingError';
+    import CompanySettingsDropdown from '@/components/CompanyDetails/CompanySettingsDropdown';
     import { getCompany } from '@/services/CompanyService';
-    import CompanyEditModal from '@/components/CompanyDetails/CompanyEditModal';
 
     export default {
         name: 'CompanyDetails',
         components: {
             LoadingSpinner,
             LoadingError,
-            CompanyEditModal,
+            CompanySettingsDropdown,
         },
         data() {
             return {
@@ -102,14 +80,6 @@
                 loadingError: null,
                 company: null,
             }
-        },
-        computed: {
-            companyPosition() {
-                if (this.$auth.isAuthenticated) {
-                    return this.$auth.user.positions.find(position => position.company.id === this.company.id);
-                }
-                return undefined;
-            },
         },
         watch: {
             '$route.params.id'(){

@@ -28,4 +28,11 @@ export const getCompany = (id) => {
     return axios.get(`/companies/${id}/`);
 };
 
-
+/**
+ * Deletes a Company.
+ *
+ * @param {number} id
+ */
+export const deleteCompany = (id) => {
+    return axios.delete(`/companies/${id}/`);
+};
