@@ -7,7 +7,7 @@
             <img v-else
                  :src="company.logo_url"
                  :alt="company.name"
-                 @error="$emit('update:invalidCompanyAvatars', company.id)"
+                 @error="$emit('update:invalidCompanyAvatars', invalidCompanyAvatars.concat([company.id]))"
                  style="max-height: 100%; max-width: 100%; display: block;">
         </div>
 
