@@ -8,7 +8,7 @@
                 <FontAwesomeIcon icon="chevron-left" />
             </button>
             <select :value="pageNumber"
-                    @change="$emit('updatePageNumber', parseInt($event.target.value))"
+                    @change="$emit('update:pageNumber', parseInt($event.target.value))"
                     class="form-select form-select-sm border-start-0 border-end-0 rounded-0">
                 <option v-for="page in numberOfPages"
                         :key="page"
