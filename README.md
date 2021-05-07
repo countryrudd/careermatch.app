@@ -1,5 +1,9 @@
 # DevLink.tech
 
+### Description
+
+A Vue.js single-page web application (SPA).
+
 ### Purpose
 
 The purpose of DevLink is to bridge the gap between qualified developers and companies who have available positions.
